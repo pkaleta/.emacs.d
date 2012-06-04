@@ -1,7 +1,8 @@
-(add-to-list 'load-path "~/.emacs.d/")
-(let ((default-directory "~/.emacs.d/"))
+(add-to-list 'load-path "~/.emacs.d")
+(let ((default-directory "~/.emacs.d"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; Python mode
 (require 'python)
 
 (setq mac-command-modifier 'meta)
@@ -17,7 +18,17 @@
   (package-refresh-contents))
 
 ;; Add in your own as you wish:
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings)
+(defvar my-packages
+  (concat
+   ;; starter-kit
+   '(starter-kit starter-kit-lisp starter-kit-bindings)
+   ;; general
+   '(color-theme color-theme-solarized undo-tree slime slime-clj slime-repl paredit magit idle-highlight-mode find-file-in-project)
+   ;; clojure
+   '(clojure-mode)
+   ;; python
+   '()
+   )
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
