@@ -2,8 +2,21 @@
 (let ((default-directory "~/.emacs.d"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; Rectangular-mark
+(require 'rect-mark)
+(global-set-key (kbd "C-x r C-SPC") 'rm-set-mark)
+(global-set-key (kbd "C-x r C-x")   'rm-exchange-point-and-mark)
+(global-set-key (kbd "C-x r C-w")   'rm-kill-region)
+(global-set-key (kbd "C-x r M-w")   'rm-kill-ring-save)
+
+;; Coffee mode
+(require 'coffee-mode)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+
 ;; Python mode
 (require 'python)
+
+(require 'arduino-mode)
 
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'control)
@@ -19,17 +32,14 @@
 
 ;; Add in your own as you wish:
 (defvar my-packages
-  (concat
-   ;; starter-kit
-   '(starter-kit starter-kit-lisp starter-kit-bindings)
-   ;; general
-   '(color-theme color-theme-solarized undo-tree slime slime-clj slime-repl paredit magit idle-highlight-mode find-file-in-project)
-   ;; clojure
-   '(clojure-mode)
-   ;; python
-   '()
-   )
-  "A list of packages to ensure are installed at launch.")
+  ;; starter-kit
+  '(starter-kit starter-kit-lisp starter-kit-bindings
+  ;; general
+  color-theme color-theme-solarized undo-tree rect-mark slime slime-repl paredit magit idle-highlight-mode find-file-in-project
+  ;; clojure
+  clojure-mode
+  ;; python
+  ))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
