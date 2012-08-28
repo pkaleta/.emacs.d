@@ -9,9 +9,38 @@
 (global-set-key (kbd "C-x r C-w")   'rm-kill-region)
 (global-set-key (kbd "C-x r M-w")   'rm-kill-ring-save)
 
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+
+(setq auto-mode-alist
+      (cons '("\\.text" . markdown-mode) auto-mode-alist))
+
 ;; Coffee mode
+(add-to-list 'load-path "~/.emacs.d/coffee-mode")
 (require 'coffee-mode)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+
+(defun coffee-custom-hook ()
+  "coffee-mode-hook"
+
+  ;; CoffeeScript uses two spaces.
+  (make-local-variable 'tab-width)
+  (set 'tab-width 2)
+
+  ;; If you don't want your compiled files to be wrapped
+  (setq coffee-args-compile '("-c" "--bare"))
+
+  ;; Emacs key binding
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+
+  ;; Riding edge.
+  ;; (setq coffee-command "~/dev/coffee")
+
+  ;; Compile '.coffee' files on every save
+  (and (file-exists-p (buffer-file-name))
+       (file-exists-p (coffee-compiled-file-name))
+       (coffee-cos-mode t)))
+
+(add-hook 'coffee-mode-hook 'coffee-custom-hook)
 
 ;; Python mode
 (require 'python)
@@ -39,6 +68,7 @@
   ;; clojure
   clojure-mode
   ;; python
+  markdown-mode
   ))
 
 (dolist (p my-packages)
