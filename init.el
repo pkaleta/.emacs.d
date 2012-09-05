@@ -15,6 +15,13 @@
 (setq auto-mode-alist
       (cons '("\\.text" . markdown-mode) auto-mode-alist))
 
+;; Highlight mode
+(global-set-key (kbd "C-*") 'highlight-symbol-next)
+(global-set-key (kbd "C-x *") 'highlight-symbol-prev)
+
+;; Which-function mode
+(set 'which-function-mode t)
+
 ;; Coffee mode
 (add-to-list 'load-path "~/.emacs.d/coffee-mode")
 (require 'coffee-mode)
@@ -69,6 +76,7 @@
   clojure-mode
   ;; python
   markdown-mode
+  highlight-mode
   ))
 
 (dolist (p my-packages)
