@@ -2,6 +2,16 @@
 (let ((default-directory "~/.emacs.d"))
   (normal-top-level-add-subdirs-to-load-path))
 
+(server-mode 1)
+
+;; UTF-8 encoding
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; Emacs Speaks Statistics
+(require 'ess-site)
+
 ;; Rectangular-mark
 (require 'rect-mark)
 (global-set-key (kbd "C-x r C-SPC") 'rm-set-mark)
@@ -15,7 +25,7 @@
 (setq auto-mode-alist
       (cons '("\\.text" . markdown-mode) auto-mode-alist))
 
-;; Highlight mode
+;; Highlight-symbol mode
 (global-set-key (kbd "C-*") 'highlight-symbol-next)
 (global-set-key (kbd "C-x *") 'highlight-symbol-prev)
 
@@ -54,9 +64,15 @@
 
 (require 'arduino-mode)
 
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'control)
+;(setq mac-command-modifier 'meta)
+;(setq mac-option-modifier 'control)
 ;(global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
+
+;; Reverting Emacs 23 behaviour for meta key
+(setq mac-option-key-is-meta nil)
+(setq mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
 
 (require 'package)
 (add-to-list 'package-archives
@@ -76,7 +92,7 @@
   clojure-mode
   ;; python
   markdown-mode
-  highlight-mode
+  highlight-symbol
   ))
 
 (dolist (p my-packages)
