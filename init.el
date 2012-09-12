@@ -64,10 +64,6 @@
 
 (require 'arduino-mode)
 
-;(setq mac-command-modifier 'meta)
-;(setq mac-option-modifier 'control)
-;(global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
-
 ;; Reverting Emacs 23 behaviour for meta key
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
@@ -93,11 +89,15 @@
   ;; python
   markdown-mode
   highlight-symbol
+  rainbow-mode
   ))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+(rainbow-mode)
+(global-rainbow-delimiters-mode)
 
 ;; erlang mode setup
 ;;(setq load-path (cons "~/dev/otp_src_R14B03/lib/tools/emacs" load-path))
